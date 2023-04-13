@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>
+		Linux Tips
+	</title>
+	
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../css/prism.css" />
+	<meta charset="utf-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container-fluid" style="width:80%; min-width: 500px;">
+		<script id="navbar" src="../js/nav.js"></script>
+		<div>
+			<header>
+				<h1>Linux Tips</h1>
+				<header>
+					<section>
+						<article>
+							<p>
+								Find file types
+							</p>
+							<pre>
+								<code class="language-bash">
+									find / -type f | perl -ne 'print $1 if m/\.([^.\/]+)$/' | sort -u
+								</code>
+							</pre>
+						</article>
+						<article>
+							<p>
+								Find a specific file type and copy
+							</p>
+							<pre>
+								<code class="language-bash">
+									find / -iname *.epub -exec cp {} epub/ \;
+								</code>
+							</pre>
+							</p>
+						</article>
+						<article>
+							<p>
+								Find a specific file type and copy if not already in destination folder
+							</p>
+							<pre>
+								<code class="language-bash">
+									find / -iname *.epub -exec cp -n {} epub/ \;
+								</code>
+							</pre>
+						</article>
+					</section>
+					<footer>
+						<a href="index.html">Home</a>
+					</footer>
+		</div>
+	</div>
+	<script src="../js/prism.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+		crossorigin="anonymous"></script>
+</body>
+</html>
