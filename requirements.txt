@@ -1,0 +1,17 @@
+graphviz
+lxml
+keras
+matplotlib
+numpy
+pandas
+pydot
+scipy
+urllib3
+virtualenv
+sympy
+scipy
+scikit-learn
+pandoc
+beautifulsoup4
+nbconvert
+jupyter

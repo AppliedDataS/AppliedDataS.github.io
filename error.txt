@@ -1,0 +1,3 @@
+[31mERROR: Could not find a version that satisfies the requirement BeautifulSoup==4 (from versions: 3.2.0, 3.2.1, 3.2.2)[0m[31m
+[0m[31mERROR: No matching distribution found for BeautifulSoup==4[0m[31m
+[0m
