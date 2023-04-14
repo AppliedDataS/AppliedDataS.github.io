@@ -1,7 +1,7 @@
 
 export PATH="/opt/homebrew/bin:$PATH"
 # source  /Users/sophie/conda/bin/activate
-source .venv/bin/activateac
+source .venv/bin/activate
 python -m pip install -U pip
 
 pip install tensorflow-macos
@@ -15,12 +15,11 @@ pip3 install plotly
 pip3 install networkx  
 pip3 install keras
 pip install torchvision torch
-git config --global user.email "eng.s.green@gmail.com"
-git config --global user.name "Sophie Greene"
 pip install graphviz
 pip install networkx
 pip install matplotlib
 pip install numpy
+brew install lualatex
 # python -m pip install opencv-python
 # export GRAPHVIZ_DIR="/opt/homebrew/Cellar/graphviz/8.0.1"
 # pip install pygraphviz --global-option=build_ext --global-option="-I$GRAPHVIZ_DIR/include" --global-option="-L$GRAPHVIZ_DIR/lib"
