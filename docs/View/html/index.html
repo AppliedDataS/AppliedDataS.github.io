@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <title>My Coding Journey</title>
+  <meta charset="utf-8" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <link href="../css/prism.css" rel="stylesheet" type="text/css" />
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" rel="stylesheet" />
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" rel="stylesheet" />
+  <!-- The loading of KaTeX is deferred to speed up page rendering -->
+  <script crossorigin="anonymous" defer=""
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4"
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+  <!-- To automatically render math in text elements, include the auto-render extension: -->
+  <script crossorigin="anonymous" defer=""
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    onload="renderMathInElement(document.body);"
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <!--navbar here -->
+    <div id="navbar">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="../html/index.html">Sophie's Coding Journey</a>
+          <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a aria-current="page" class="nav-link active" href="../html/index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../html/about.html">About Me</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../html/research_intersts.html">Research Interests</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../html/general_intersts.html">General Interests</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h1 class="title">My Coding Journey</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12" id="dynamic_content">
+        <!-- pages here-->
+        <div>
+        </div>
+        <h1> My Learning Journey
+        </h1>
+        <h2> Data Science How-To
+        </h2>
+        <span>
+          <ol>
+          </ol>
+        </span>
+        <span>
+          <li>
+          </li>
+        </span>
+        <span><a href="neural_nets.html"> Neural networks visualisation via graphviz.</a>
+        </span>
+        <span>
+        </span>
+        <span>
+          <li>
+          </li>
+        </span>
+        <span><a href="jacobian.html">
+          </a></span>
+        <span>Understanding Jacobian functions through explicit differentiation
+        </span>
+        <span>
+        </span>
+        <span>
+        </span>
+        <span>
+          <li>
+          </li>
+        </span>
+        <span><a href="">
+          </a></span>
+        <span>Todoß
+        </span>
+        <span>
+        </span>
+        <span>
+          <li>
+          </li>
+        </span>
+        <span>Todoß
+        </span>
+        <span>
+        </span>
+        <span>
+        </span>
+        <div>
+        </div>
+        <h2> Data Science dependecies
+        </h2>
+        <span>Please note that the following statement is used to import the libraries used in the demo.</span>
+        <div>
+        </div>
+        <div>
+          <pre>
+<code class="language-python">try: 
+    import networkx as nx
+    import matplotlib.pyplot as plt
+    from IPython.display import SVG
+    import numpy as np
+except Exception as e:
+  print(e)
+  %pip install matplotlib
+  %pip install graphviz
+  %pip install networkx
+  %pip install numpy
+</code>
+</pre>
+        </div>
+        <div>
+        </div>
+        <span>Alternatively you can use the file [requirements.txt](requirements.txt) and use `pip` to install all the
+          libraries in the text file</span>
+        <div>
+        </div>
+        <div>
+          <pre>
+<code class="language-python">%pip install -r requirements.txt &gt;log.txt
+</code>
+</pre>
+        </div>
+        <div>
+        </div>
+        <span>If you're on macOS X you might need other preperations
+        </span>
+        <h5> Setup Data Science environment on MacBook
+        </h5>
+        <span>We first need to install [homebrew](brew.sh) the self proclaimed "M"issing Package Manager for macOS (or
+          Linux)" </span>
+        <div>
+        </div>
+        <div>
+          <pre>
+<code class="language-python"># install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# activate brew
+export PATH="$PATH:/opt/homebrew/bin"
+# install python3 
+brew install python3
+# create a soft link to python3 so that we can use python instead
+ln -s /opt/homebrew/bin/python3 /opt/homebrew/bin/python
+# create a link to pip3 so that we can use pip instead
+ln -s /opt/homebrew/bin/pip3 /opt/homebrew/bin/pip
+# create a new enviroment myDS, this helps you run different enviroments with different versions of packages
+# https://docs.python.org/3/tutorial/venv.html
+python -m venv myDS
+#activate the myDS enviroment
+source myDS/bin/activate
+# install graphviz
+brew install graphviz
+# install common libraries in DS
+pip install -r requirements.txt
+
+</code>
+</pre>
+        </div>
+        <div>
+        </div>
+        <span>Alternatively you can use macports, but after trying both I prefer brew</span>
+      </div>
+    </div>
+  </div>
+  <script crossorigin="anonymous" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
+    </script>
+  <script src="../js/prism.js">
+  </script>
+</body>
+
+</html>
+<div id="navbar"></div>
