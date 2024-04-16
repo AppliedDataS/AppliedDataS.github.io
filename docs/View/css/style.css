@@ -29,6 +29,6 @@ embed-container {
     width: 100%;
     height: 100%;
   }
-div.card-body{
+.row{
     margin:20px;
 }
