@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>title</title>
+<meta charset="utf-8"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/prism.css" rel="stylesheet" type="text/css"/>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" rel="stylesheet"/>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" rel="stylesheet"/>
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script crossorigin="anonymous" defer="" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script crossorigin="anonymous" defer="" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" onload="renderMathInElement(document.body);" src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+<div class="container">
+<!--navbar here -->
+<div id="navbar"></div>
+<div class="row">
+<div class="col-12">
+<h1 class="title">title</h1>
+</div>
+</div>
+<div class="row">
+<div class="col-12" id="dynamic_content">
+<!-- pages here-->
+
+<div>
+</div><html><body><h2> Retrieve current PL season Fixtures Weather Data</h2>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">import pandas as pd
+import requests
+import os
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><h4> Read the current season fixtures</h4>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">fix_url = 'https://fantasy.premierleague.com/api/fixtures/'
+fixtures = pd.DataFrame(requests.get(fix_url).json())
+fixtures = fixtures[fixtures['finished'] == True]
+fixtures['kickoff_time'] = pd.to_datetime(fixtures['kickoff_time'],errors='coerce')
+fixtures['end_time'] = fixtures['kickoff_time'] + fixtures['minutes'].apply(
+  lambda m: pd.Timedelta(f'{m}m' ))
+fixtures.head()
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><h4> Read team's information</h4>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python"># base url for all FPL API endpoints
+base_url = 'https://fantasy.premierleague.com/api/'
+# get data from bootstrap-static endpoint
+database = requests.get(base_url+'bootstrap-static/').json()
+teams = teams = pd.DataFrame(database['teams'])
+# correct name issues
+teams['name'] = teams['name'].replace({'Spurs':'Tottenham Hotspurs','Wolves':'Wolverhampton Wanderers'})
+teams.head()
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><h4> Find the fixture location</h4>
+</body></html>
+<div>
+</div><html><body><h5> Team stadium info retrieval</h5>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">def convert_degrees2coordinates(degrees_string):
+  """
+  The convert_de function takes a string of the form 'dddmm.mmmmN' or 'dddmm.mmmmW' and returns
+  a string of the form '-ddd.mmmmmmm'.  This is useful for converting coordinates in degrees, minutes, and decimal
+  minutes to decimal degrees.
+  Parameters
+  ----------
+      rees2coordinates(degrees_string
+          Convert the string of degrees into a float
+  Returns
+  -------
+      A string that is a number with a minus sign if the coordinate is west or south
+  Doc Author
+  ----------
+      Trelent
+  """
+  if degrees_string.strip()[-1]=='W':
+    return (f'-{degrees_string.strip()[:-2]}')
+  else:
+    return (f'{degrees_string.strip()[:-2]}')
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>Get list of stadiums of each team and the stadium's location</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">def get_stadiums():
+  """
+                   The get_stadiums function returns a list of stadiums in the database.
+                   Parameters
+                   ----------
+                   Returns
+                   -------
+                       A list of stadiums
+                   Doc Author
+                   ----------
+                       Trelent
+                   """
+  stadiums = pd.read_html('https://en.wikipedia.org/wiki/List_of_Premier_League_stadiums')[0]
+  stadiums['Coordinates'] = stadiums['Coordinates'].str.split(
+    '/').str[-1].str.strip().str.split(
+      ' ').apply(lambda stringCors:[elm.split()[-1] for elm in stringCors])
+  stadiums['lat'] = pd.to_numeric(stadiums['Coordinates'].apply(
+    lambda lst: lst[0]).apply(convert_degrees2coordinates).str.encode(
+      'ascii', 'ignore').str.decode('ascii'),errors='coerce')
+  stadiums['long'] = pd.to_numeric(stadiums['Coordinates'].apply(
+    lambda lst: lst[-1]).apply(convert_degrees2coordinates).str.encode(
+      'ascii', 'ignore').str.decode('ascii'),errors='coerce')
+  return stadiums
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">stadiums = get_stadiums()
+stadiums.head()
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><h4> Retrieve weather data for the current season</h4>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">def create_url(params):
+    """
+    The create_url function takes a dictionary of parameters and returns a url string.
+    The function is used to create the url for the API call.
+    Parameters
+    ----------
+        params
+            Pass the parameters to the api
+    Returns
+    -------
+        A string that is the url for a query to openmeteodata
+    Doc Author
+    ----------
+        Trelent
+    """
+    url = "https://archive-api.open-meteo.com/v1/archive?"
+    for k, v in params.items():
+        if type(v) == list:  # noqa: E721
+            url += f"{k}={','.join(v)}"
+        else:
+            url += f"{k}={v}"
+        url += "&amp;"
+    return url[:-1]
+def get_weather(latitude, longitude, start_date, end_date):
+    """
+    The get_weather function takes in a latitude, longitude, start_date and end_date.
+    It then creates a url using the create_url function with the parameters passed into get_weather.
+    The url is then used to make an API call to Weatherbit's weather API and returns hourly and daily dataframes.
+    Parameters
+    ----------
+        latitude
+            Specify the latitude of the location for which you want to get weather data
+        longitude
+            Specify the longitude of the location
+        start_date
+            Define the start date of the weather data to be retrieved
+        end_date
+            Specify the end date of the data to be retrieved
+    Returns
+    -------
+        A tuple of two dataframes
+    Doc Author
+    ----------
+        Trelent
+    """
+    params = {
+        "latitude": latitude,
+        "longitude": longitude,
+        "start_date": start_date,
+        "end_date": end_date,
+        "temperature_unit":'celsius',
+        "hourly": ["temperature_2m", "relative_humidity_2m", "dew_point_2m", "apparent_temperature", "precipitation", "rain", "snowfall", "snow_depth", "weather_code", "pressure_msl", "surface_pressure", "cloud_cover", "cloud_cover_low", "cloud_cover_mid", "cloud_cover_high", "et0_fao_evapotranspiration", "vapour_pressure_deficit", "wind_speed_10m", "wind_speed_100m", "wind_direction_10m", "wind_direction_100m", "wind_gusts_10m", "soil_temperature_0_to_7cm"],
+	"daily": ["temperature_2m_max", "temperature_2m_min", "temperature_2m_mean", "apparent_temperature_max", "apparent_temperature_min", "apparent_temperature_mean", "sunrise", "sunset", "rain_sum", "snowfall_sum", "precipitation_hours", "wind_speed_10m_max", "wind_gusts_10m_max"]
+}
+    url = create_url(params)
+    try:
+        r = requests.get(url).json()
+        print(url)
+        print(r.keys(),r.get('error'),r.get('reason'))
+        hourly = pd.DataFrame(r["hourly"], columns=r["hourly_units"])
+        daily = pd.DataFrame(r["daily"], columns=r["daily_units"])
+        return hourly, daily
+    except Exception as e:
+        return 
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">def get_stadium_weather(club,start_date,end_date):
+    """
+    The get_stadium_weather function takes in a club name, start date and end date.
+    It then uses the latitude and longitude of the stadium to get weather data from 
+    the DarkSky API. The function returns a tuple containing: 
+    (club name, hourly file path, daily file path)
+    Parameters
+    ----------
+        club
+            Get the longitude and latitude of the stadium
+        start_date
+            Specify the start date of the weather data to be retrieved
+        end_date
+            Specify the end date of the weather data to be collected
+    Returns
+    -------
+        A tuple with the club name, hourly file path and daily file path
+    Doc Author
+    ----------
+        Trelent
+    """
+    try: 
+        longitude, latitude = stadiums[stadiums["Club"].str.lower().str.contains(
+                club.lower())][["long", "lat"]].iloc[0].to_list()
+    except Exception as e:
+        try:
+            longitude, latitude = stadiums[stadiums["Club"].str.lower().str.contains(
+                club.split()[-1].strip().lower())][["long", "lat"]].iloc[0].to_list()
+        except Exception as e: 
+            try:
+                longitude, latitude = stadiums[stadiums["Club"].str.lower().str.contains(
+                club.split()[0].strip().lower())][["long", "lat"]].iloc[0].to_list()
+            except Exception as e:
+                return club,'error',str(e)
+    hourly_file_name = f'database/{club}{start_date}To{end_date}Hourly.csv'
+    daily_file_name = f'database/{club}{start_date}To{end_date}Daily.csv'
+    if not os.path.exists(hourly_file_name):
+        # create database directory if it does not exist
+        os.makedirs('database', exist_ok=True)
+        h, d = get_weather(latitude, longitude, start_date, end_date)
+        h.to_csv(hourly_file_name)
+        d.to_csv(daily_file_name)
+    return pd.Series({'hourly':hourly_file_name,'daily': daily_file_name})
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>Get current season start/ end dates</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">events = pd.DataFrame(database['events'])
+events['deadline_time'] = pd.to_datetime(events['deadline_time'],errors='coerce')
+start_date =str(events['deadline_time'].min() ).split()[0].strip()
+# we can only retrieve historical weather so if the end of season is in the future set the end_date to today
+end_date = str(
+  min(events['deadline_time'].max() + pd.Timedelta('1d'),
+      pd.Timestamp.now(tz='UTC'))).split()[0].strip()
+start_date, end_date
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>&gt; Example: find Man city home matches weather in the first 6 months of the year 2023</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">get_stadium_weather('Manchester city',start_date,end_date)
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>Get all teams home staduim weather for the entire season</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">teams[['hourly','daily']] = teams['name'].apply(lambda team:get_stadium_weather(team,start_date, end_date))
+
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">teams[teams.columns[3:8].tolist()+teams.columns[-2:].to_list()].head()
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>combine teams with fixtures to specify which wather data file shall be used</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python"># combine teams with fixtures to specify which wather data file shall be used
+fixtures = fixtures.merge(
+  teams, left_on='team_h',right_on='id').rename({'name':'home_team'},axis=1)
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>find the time when the matches ended rounded up to the hour
+</span>
+</body></html><html><body><span>and round kickoff hour down to the hour</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">fixtures['end_time'] = (fixtures.kickoff_time + fixtures['minutes'].apply(
+  lambda x: pd.Timedelta(f'{x}m'))).dt.ceil(freq='h')
+fixtures.kickoff_time = fixtures.kickoff_time.dt.floor(freq='h')
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">cols_of_interest = ['home_team','kickoff_time','end_time','hourly','daily']
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">fixtures[cols_of_interest]
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">def get_fixture_weather(kickoff_time, end_time,hourly, daily):
+  return
+
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python"># # add weather data at kickoff time
+# fixtures = fixtures.merge(hourley,left_on='kickoff_time',right_on='time',how='left')
+# # add weather data at end time
+# fixtures = fixtures.merge(hourley,left_on='end_time',right_on='time',how='left')
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">def combine(row):
+  # print(row['home_team'])
+  """
+  The combine function takes a row from the fixtures dataframe and merges it with the hourly weather data.
+  It returns a new dataframe containing all of this information.
+  Parameters
+  ----------
+      row
+          Pass a row from the dataframe to the function
+  Returns
+  -------
+      A dataframe
+  Doc Author
+  ----------
+      Trelent
+  """
+  hourley = pd.read_csv(row['hourly'], 
+                        index_col=[0],
+                        )
+  hourley['time'] = pd.to_datetime(hourley['time'],errors='coerce').dt.tz_localize('UTC')
+  tmp = fixtures[fixtures['home_team']==row['name']]
+  tmp = tmp.merge(hourley,left_on='kickoff_time',right_on='time',how='left')
+  tmp = tmp.merge(hourley,left_on='end_time',right_on='time',how='left')
+  return tmp
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>Combine weather data with fixtures</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">fixtures = pd.concat([combine(row) for _,row in teams.iterrows()])
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>Combine weather data with player data</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">players = pd.DataFrame(database['elements'])
+# remove players with no playing history
+players[players['total_points'].notnull and players['total_points']!=0]
+players['player_name'] = players.first_name + ' ' + players.second_name
+players.head()
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">data = fixtures.merge(
+  teams.merge(players,left_on='code',right_on='team_code'),
+  left_on='team_h',right_on='code_x',how='inner')
+data.set_index('kickoff_time', inplace=True)
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">data[['team_h','player_name','home_team','temperature_2m_x','temperature_2m_y']]
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">data.info()
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python"># data[data['total_points']&gt;130].groupby('player_name')['temperature_2m_x'].plot(legend=True)
+
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><span>plot player performance in matches throught the season</span>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">g = sns.relplot(
+    data=data[data['total_points']&gt;155],
+    y="event_points",
+    x="temperature_2m_x",
+    hue="player_name",
+    kind="line",
+    facet_kws={"legend_out": True}
+)
+g.set_xticklabels(rotation=30) ;
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">sns.scatterplot(data=data[data['total_points']&gt;155],
+    x="event_points",
+    y="temperature_2m_x",hue="player_name")
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python"># fixtures.corr()
+</code>
+</pre>
+</div>
+</body></html>
+<div>
+</div><html><body><div>
+<pre>
+<code class="language-python">
+</code>
+</pre>
+</div>
+</body></html></div>
+</div>
+</div>
+<script crossorigin="anonymous" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
+</script>
+<script src="../js/prism.js">
+</script>
+</body>
+</html>

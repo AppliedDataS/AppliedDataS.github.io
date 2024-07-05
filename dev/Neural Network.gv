@@ -1,0 +1,456 @@
+digraph "Neural Network" {
+	label="Neural Network"
+	fontsize=32
+	fontname=Arial
+	node [fontname=Arial]
+	fontcolor=Black
+	rankdir=LR
+	line=none
+	splines=line
+	nodesep=.05
+	ranksep=1.3
+	labelloc=t
+	edge [arrowsize=.5 color=darkviolet]
+	node [color=lightblue fillcolor=lightblue fontcolor=blue rankdir=TD shape=circle style=filled]
+	a10 [label="a0(0)"]
+	node [color=lightblue fillcolor=lightblue fontcolor=blue rankdir=TD shape=circle style=filled]
+	a11 [label="a1(0)"]
+	node [color=lightblue fillcolor=lightblue fontcolor=blue rankdir=TD shape=circle style=filled]
+	a12 [label="a2(0)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a20 [label="a0(1)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a21 [label="a1(1)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a22 [label="a2(1)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a30 [label="a0(2)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a31 [label="a1(2)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a32 [label="a2(2)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a33 [label="a3(2)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a34 [label="a4(2)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a40 [label="a0(3)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a41 [label="a1(3)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a42 [label="a2(3)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a43 [label="a3(3)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a44 [label="a4(3)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a45 [label="a5(3)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a46 [label="a6(3)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a50 [label="a0(4)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a51 [label="a1(4)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a52 [label="a2(4)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a53 [label="a3(4)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a54 [label="a4(4)"]
+	node [color=lightpink fillcolor=lightpink fontcolor=blue rankdir=TD shape=circle style=filled]
+	a55 [label="a5(4)"]
+	node [color=lightgreen fillcolor=lightgreen fontcolor=blue rankdir=TD shape=circle style=filled]
+	a60 [label="a0(5)"]
+	node [color=lightgreen fillcolor=lightgreen fontcolor=blue rankdir=TD shape=circle style=filled]
+	a61 [label="a1(5)"]
+	node [color=lightgreen fillcolor=lightgreen fontcolor=blue rankdir=TD shape=circle style=filled]
+	a62 [label="a2(5)"]
+	node [color=lightgreen fillcolor=lightgreen fontcolor=blue rankdir=TD shape=circle style=filled]
+	a63 [label="a3(5)"]
+	edge [pencolor=pink penwidth=1]
+	a10 -> a20
+	edge [pencolor=pink penwidth=1]
+	a10 -> a21
+	edge [pencolor=pink penwidth=1]
+	a10 -> a22
+	edge [pencolor=pink penwidth=1]
+	a11 -> a20
+	edge [pencolor=pink penwidth=1]
+	a11 -> a21
+	edge [pencolor=pink penwidth=1]
+	a11 -> a22
+	edge [pencolor=pink penwidth=1]
+	a12 -> a20
+	edge [pencolor=pink penwidth=1]
+	a12 -> a21
+	edge [pencolor=pink penwidth=1]
+	a12 -> a22
+	edge [pencolor=pink penwidth=1]
+	a20 -> a30
+	edge [pencolor=pink penwidth=1]
+	a20 -> a31
+	edge [pencolor=pink penwidth=1]
+	a20 -> a32
+	edge [pencolor=pink penwidth=1]
+	a20 -> a33
+	edge [pencolor=pink penwidth=1]
+	a20 -> a34
+	edge [pencolor=pink penwidth=1]
+	a21 -> a30
+	edge [pencolor=pink penwidth=1]
+	a21 -> a31
+	edge [pencolor=pink penwidth=1]
+	a21 -> a32
+	edge [pencolor=pink penwidth=1]
+	a21 -> a33
+	edge [pencolor=pink penwidth=1]
+	a21 -> a34
+	edge [pencolor=pink penwidth=1]
+	a22 -> a30
+	edge [pencolor=pink penwidth=1]
+	a22 -> a31
+	edge [pencolor=pink penwidth=1]
+	a22 -> a32
+	edge [pencolor=pink penwidth=1]
+	a22 -> a33
+	edge [pencolor=pink penwidth=1]
+	a22 -> a34
+	edge [pencolor=pink penwidth=1]
+	a30 -> a40
+	edge [pencolor=pink penwidth=1]
+	a30 -> a41
+	edge [pencolor=pink penwidth=1]
+	a30 -> a42
+	edge [pencolor=pink penwidth=1]
+	a30 -> a43
+	edge [pencolor=pink penwidth=1]
+	a30 -> a44
+	edge [pencolor=pink penwidth=1]
+	a30 -> a45
+	edge [pencolor=pink penwidth=1]
+	a30 -> a46
+	edge [pencolor=pink penwidth=1]
+	a31 -> a40
+	edge [pencolor=pink penwidth=1]
+	a31 -> a41
+	edge [pencolor=pink penwidth=1]
+	a31 -> a42
+	edge [pencolor=pink penwidth=1]
+	a31 -> a43
+	edge [pencolor=pink penwidth=1]
+	a31 -> a44
+	edge [pencolor=pink penwidth=1]
+	a31 -> a45
+	edge [pencolor=pink penwidth=1]
+	a31 -> a46
+	edge [pencolor=pink penwidth=1]
+	a32 -> a40
+	edge [pencolor=pink penwidth=1]
+	a32 -> a41
+	edge [pencolor=pink penwidth=1]
+	a32 -> a42
+	edge [pencolor=pink penwidth=1]
+	a32 -> a43
+	edge [pencolor=pink penwidth=1]
+	a32 -> a44
+	edge [pencolor=pink penwidth=1]
+	a32 -> a45
+	edge [pencolor=pink penwidth=1]
+	a32 -> a46
+	edge [pencolor=pink penwidth=1]
+	a33 -> a40
+	edge [pencolor=pink penwidth=1]
+	a33 -> a41
+	edge [pencolor=pink penwidth=1]
+	a33 -> a42
+	edge [pencolor=pink penwidth=1]
+	a33 -> a43
+	edge [pencolor=pink penwidth=1]
+	a33 -> a44
+	edge [pencolor=pink penwidth=1]
+	a33 -> a45
+	edge [pencolor=pink penwidth=1]
+	a33 -> a46
+	edge [pencolor=pink penwidth=1]
+	a34 -> a40
+	edge [pencolor=pink penwidth=1]
+	a34 -> a41
+	edge [pencolor=pink penwidth=1]
+	a34 -> a42
+	edge [pencolor=pink penwidth=1]
+	a34 -> a43
+	edge [pencolor=pink penwidth=1]
+	a34 -> a44
+	edge [pencolor=pink penwidth=1]
+	a34 -> a45
+	edge [pencolor=pink penwidth=1]
+	a34 -> a46
+	edge [pencolor=pink penwidth=1]
+	a40 -> a50
+	edge [pencolor=pink penwidth=1]
+	a40 -> a51
+	edge [pencolor=pink penwidth=1]
+	a40 -> a52
+	edge [pencolor=pink penwidth=1]
+	a40 -> a53
+	edge [pencolor=pink penwidth=1]
+	a40 -> a54
+	edge [pencolor=pink penwidth=1]
+	a40 -> a55
+	edge [pencolor=pink penwidth=1]
+	a41 -> a50
+	edge [pencolor=pink penwidth=1]
+	a41 -> a51
+	edge [pencolor=pink penwidth=1]
+	a41 -> a52
+	edge [pencolor=pink penwidth=1]
+	a41 -> a53
+	edge [pencolor=pink penwidth=1]
+	a41 -> a54
+	edge [pencolor=pink penwidth=1]
+	a41 -> a55
+	edge [pencolor=pink penwidth=1]
+	a42 -> a50
+	edge [pencolor=pink penwidth=1]
+	a42 -> a51
+	edge [pencolor=pink penwidth=1]
+	a42 -> a52
+	edge [pencolor=pink penwidth=1]
+	a42 -> a53
+	edge [pencolor=pink penwidth=1]
+	a42 -> a54
+	edge [pencolor=pink penwidth=1]
+	a42 -> a55
+	edge [pencolor=pink penwidth=1]
+	a43 -> a50
+	edge [pencolor=pink penwidth=1]
+	a43 -> a51
+	edge [pencolor=pink penwidth=1]
+	a43 -> a52
+	edge [pencolor=pink penwidth=1]
+	a43 -> a53
+	edge [pencolor=pink penwidth=1]
+	a43 -> a54
+	edge [pencolor=pink penwidth=1]
+	a43 -> a55
+	edge [pencolor=pink penwidth=1]
+	a44 -> a50
+	edge [pencolor=pink penwidth=1]
+	a44 -> a51
+	edge [pencolor=pink penwidth=1]
+	a44 -> a52
+	edge [pencolor=pink penwidth=1]
+	a44 -> a53
+	edge [pencolor=pink penwidth=1]
+	a44 -> a54
+	edge [pencolor=pink penwidth=1]
+	a44 -> a55
+	edge [pencolor=pink penwidth=1]
+	a45 -> a50
+	edge [pencolor=pink penwidth=1]
+	a45 -> a51
+	edge [pencolor=pink penwidth=1]
+	a45 -> a52
+	edge [pencolor=pink penwidth=1]
+	a45 -> a53
+	edge [pencolor=pink penwidth=1]
+	a45 -> a54
+	edge [pencolor=pink penwidth=1]
+	a45 -> a55
+	edge [pencolor=pink penwidth=1]
+	a46 -> a50
+	edge [pencolor=pink penwidth=1]
+	a46 -> a51
+	edge [pencolor=pink penwidth=1]
+	a46 -> a52
+	edge [pencolor=pink penwidth=1]
+	a46 -> a53
+	edge [pencolor=pink penwidth=1]
+	a46 -> a54
+	edge [pencolor=pink penwidth=1]
+	a46 -> a55
+	edge [pencolor=pink penwidth=1]
+	a50 -> a60
+	edge [pencolor=pink penwidth=1]
+	a50 -> a61
+	edge [pencolor=pink penwidth=1]
+	a50 -> a62
+	edge [pencolor=pink penwidth=1]
+	a50 -> a63
+	edge [pencolor=pink penwidth=1]
+	a51 -> a60
+	edge [pencolor=pink penwidth=1]
+	a51 -> a61
+	edge [pencolor=pink penwidth=1]
+	a51 -> a62
+	edge [pencolor=pink penwidth=1]
+	a51 -> a63
+	edge [pencolor=pink penwidth=1]
+	a52 -> a60
+	edge [pencolor=pink penwidth=1]
+	a52 -> a61
+	edge [pencolor=pink penwidth=1]
+	a52 -> a62
+	edge [pencolor=pink penwidth=1]
+	a52 -> a63
+	edge [pencolor=pink penwidth=1]
+	a53 -> a60
+	edge [pencolor=pink penwidth=1]
+	a53 -> a61
+	edge [pencolor=pink penwidth=1]
+	a53 -> a62
+	edge [pencolor=pink penwidth=1]
+	a53 -> a63
+	edge [pencolor=pink penwidth=1]
+	a54 -> a60
+	edge [pencolor=pink penwidth=1]
+	a54 -> a61
+	edge [pencolor=pink penwidth=1]
+	a54 -> a62
+	edge [pencolor=pink penwidth=1]
+	a54 -> a63
+	edge [pencolor=pink penwidth=1]
+	a55 -> a60
+	edge [pencolor=pink penwidth=1]
+	a55 -> a61
+	edge [pencolor=pink penwidth=1]
+	a55 -> a62
+	edge [pencolor=pink penwidth=1]
+	a55 -> a63
+	node [color=lightblue fillcolor=lightblue labelloc=t rankdir=TD shape=circle style=filled]
+	a10 [label="a0(0)"]
+	node [color=lightblue fillcolor=lightblue labelloc=t rankdir=TD shape=circle style=filled]
+	a11 [label="a1(0)"]
+	node [color=lightblue fillcolor=lightblue labelloc=t rankdir=TD shape=circle style=filled]
+	a12 [label="a2(0)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a20 [label="a0(1)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a21 [label="a1(1)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a22 [label="a2(1)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a30 [label="a0(2)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a31 [label="a1(2)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a32 [label="a2(2)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a33 [label="a3(2)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a34 [label="a4(2)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a40 [label="a0(3)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a41 [label="a1(3)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a42 [label="a2(3)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a43 [label="a3(3)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a44 [label="a4(3)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a45 [label="a5(3)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a46 [label="a6(3)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a50 [label="a0(4)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a51 [label="a1(4)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a52 [label="a2(4)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a53 [label="a3(4)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a54 [label="a4(4)"]
+	node [color=lightpink fillcolor=lightpink labelloc=t rankdir=TD shape=circle style=filled]
+	a55 [label="a5(4)"]
+	node [color=lightgreen fillcolor=lightgreen labelloc=t rankdir=TD shape=circle style=filled]
+	a60 [label="a0(5)"]
+	node [color=lightgreen fillcolor=lightgreen labelloc=t rankdir=TD shape=circle style=filled]
+	a61 [label="a1(5)"]
+	node [color=lightgreen fillcolor=lightgreen labelloc=t rankdir=TD shape=circle style=filled]
+	a62 [label="a2(5)"]
+	node [color=lightgreen fillcolor=lightgreen labelloc=t rankdir=TD shape=circle style=filled]
+	a63 [label="a3(5)"]
+	subgraph cluster_1 {
+		fontsize=16
+		labelloc=b
+		fillcolor=none fontcolor=blue label=Input penwidth=0
+		a10
+		fillcolor=none fontcolor=blue label=Input penwidth=0
+		a11
+		fillcolor=none fontcolor=blue label=Input penwidth=0
+		a12
+	}
+	subgraph cluster_2 {
+		fontsize=16
+		labelloc=b
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a20
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a21
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a22
+	}
+	subgraph cluster_3 {
+		fontsize=16
+		labelloc=b
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a30
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a31
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a32
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a33
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a34
+	}
+	subgraph cluster_4 {
+		fontsize=16
+		labelloc=b
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a40
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a41
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a42
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a43
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a44
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a45
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a46
+	}
+	subgraph cluster_5 {
+		fontsize=16
+		labelloc=b
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a50
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a51
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a52
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a53
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a54
+		fillcolor=none fontcolor=blue label=Hidden penwidth=0
+		a55
+	}
+	subgraph cluster_6 {
+		fontsize=16
+		labelloc=b
+		fillcolor=none fontcolor=blue label=Output penwidth=0
+		a60
+		fillcolor=none fontcolor=blue label=Output penwidth=0
+		a61
+		fillcolor=none fontcolor=blue label=Output penwidth=0
+		a62
+		fillcolor=none fontcolor=blue label=Output penwidth=0
+		a63
+	}
+}

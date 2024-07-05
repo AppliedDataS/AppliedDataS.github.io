@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Understanding Jacobian functions through explicit differentiation</title>
+  <!-- <link rel="stylesheet" type="text/css" href="../css/style.css" /> -->
+  <link rel="stylesheet" type="text/css" href="css/prism.css" />
+  <!-- Load mathjax -->
+  <script type="text/javascript" async=""
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_CHTML-full,Safe">
+    </script>
+  <!-- MathJax configuration -->
+  <script type="text/x-mathjax-config;executed=true">init_mathjax=function() {
+        if (window.MathJax) {
+      
+          // MathJax loaded
+          MathJax.Hub.Config({
+            TeX: {
+              equationNumbers: {
+                autoNumber: "AMS",
+                useLabelIds: true
+              }
+            }
+      
+            ,
+            tex2jax: {
+              inlineMath: [ ['$', '$'], ["\(", "\)"]],
+              displayMath: [ ['$$', '$$'], ["\[", "\]"]],
+              processEscapes: true,
+              processEnvironments: true
+            }
+      
+            ,
+            displayAlign: 'center',
+            CommonHTML: {
+              linebreaks: {
+                automatic: true
+              }
+            }
+          });
+      
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      }
+      }
+      
+      init_mathjax();
+      
+      </script>
+  <!-- End of mathjax configuration -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <div class="container">
+    <!--navbar here -->
+    <!-- <script id="navbar" src="js/nav.js"></script> -->
+    <div class="row">
+      <div class="col-12">
+        <h3>Understanding Jacobian functions through explicit differentiation</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <p>Jacobian of a single function of many variables
+          \begin{equation}
+          f(x1,x2,x3,...xn)
+          \end{equation}
+          \begin{equation}
+          J=
+          \begin{bmatrix}
+          \frac{\partial f}{\partial x_1}&, \frac{\partial f}{\partial x_2}&,\frac{\partial f}{\partial x_3} &, ...
+          &,\frac {\partial f}{\partial x_n}
+          \end{bmatrix}
+          \end{equation}</p>
+
+
+        <div>
+          <pre><code class='language-python'>try:
+              from sympy import *
+              except ModuleNotFoundError as e:
+              %pip install sympy
+              x = Symbol('x')
+              y = Symbol('y')
+              z = Symbol('z')
+              f = x**2 * y + 3 * z
+              fpx = diff(f,x)
+              fpy = diff(f,y)
+              fpz = diff(f,z)
+              print(fpx)
+              print(fpy)
+              print (fpz)</code></pre>
+        </div>
+
+        <h3>Working Out the Jacobian for an example function</h3>
+
+        <p>for the function</p>
+
+        <p>\begin{equation}
+          f(x) = x^{2}y+3z
+          \end{equation}</p>
+
+        <p>The partial derivatives of the function with respect to x, y and z are:</p>
+
+        <p>\begin{equation}
+          \frac {\partial f}{\partial x} = 2xy
+          \end{equation}
+          \begin{equation}
+          \frac {\partial f}{\partial y} = x^{2}
+          \end{equation}
+          \begin{equation}
+          \frac {\partial f}{\partial z} = 3
+          \end{equation}
+          hence the Jacobian is
+          \begin{equation}
+          J = \begin{bmatrix}
+          2xy & x^{2} & 3
+          \end{bmatrix}
+          \end{equation}</p>
+
+        <p>We now have an algebraic expression for a vector which when we give it a specific x, y, z coordinate, will
+          return a vector pointing in <strong>the direction of steepest slope of this function</strong>. The vector for
+          this particular function has a constant contribution in the z direction which does not depend on the location
+          selected.</p>
+
+        <h3>Calculating the Jacobian Quiz</h3>
+
+
+        <div>
+          <pre><code class='language-python'># Q1
+              x = Symbol('x')
+              y = Symbol('y')
+              f = x**2 * y + 3/4*x*y+10
+              fpx = diff(f,x)
+              fpy = diff(f,y)
+              print(fpx)
+              print(fpy)</code></pre>
+        </div>
+
+        <h5>Question 1 Solution:</h5>
+
+        <p>\begin{equation}
+          \frac{\partial f}{\partial x} = 2xy + \frac{3}{4}y
+          \end{equation}
+          \begin{equation}
+          \frac{\partial f}{\partial y} = x^{2} + \frac{3}{4}x
+          \end{equation}</p>
+
+
+        <div>
+          <pre><code class='language-python'># Q2
+              x = Symbol('x')
+              y = Symbol('y')
+              z = Symbol('z')
+              f = exp(x)*cos(y) + x*exp(3*y)-2
+              fpx = diff(f,x)
+              fpy = diff(f,y)
+              fpz = diff(f,z)
+              print(latex(fpx))
+              print(latex(fpy))
+              print (latex(fpz))</code></pre>
+        </div>
+
+        <h5>Question 2 Solution:</h5>
+
+        <p>\begin{equation}
+          \frac{\partial f}{\partial x} = e^{x} \cos{\left(y \right)} + e^{3 y}
+          \end{equation}
+          \begin{equation}
+          \frac{\partial f}{\partial y} = x^{2} + \frac{3}{4}x
+          \end{equation}</p>
+
+
+        <div>
+          <pre><code class='language-python'># Q3
+              x = Symbol('x')
+              y = Symbol('y')
+              z = Symbol('z')
+              f = exp(x)*cos(y) +x**2 * y**2 * z**2
+              fpx = diff(f,x)
+              fpy = diff(f,y)
+              fpz = diff(f,z)
+              print(latex(fpx))
+              print(latex(fpy))
+              print (latex(fpz))</code></pre>
+        </div>
+
+        <h5>Question 3 Solution:</h5>
+
+        <p>\begin{equation}
+          \frac{\partial f}{\partial x} = 2 x y^{2} z^{2} + e^{x} \cos{\left(y \right)}
+          \end{equation}
+          \begin{equation}
+          \frac{\partial f}{\partial y} = 2 x^{2} y z^{2} - e^{x} \sin{\left(y \right)}
+          \end{equation}
+          \begin{equation}
+          \frac{\partial f}{\partial z} = 2 x^{2} y^{2} z
+          \end{equation}</p>
+
+
+        <div>
+          <pre><code class='language-python'># Q4
+              x = Symbol('x')
+              y = Symbol('y')
+              z = Symbol('z')
+              f = x**2 +3 * exp(y) * exp(z) + cos(x) * sin(z)
+              fpx = diff(f,x)
+              fpy = diff(f,y)
+              fpz = diff(f,z)
+              print(latex(fpx))
+              print(latex(fpy))
+              print (latex(fpz))
+              pnt = {x: 0,y: 0,z: 0}
+              J0 = [fpx.subs(pnt), fpy.subs(pnt), fpz.subs(pnt)]
+              J0</code></pre>
+        </div>
+
+        <h5>Question 4 Solution:</h5>
+
+        <p>\begin{equation}
+          \frac{\partial f}{\partial x} = 2 x - \sin{\left(x \right)} \sin{\left(z \right)}
+          \end{equation}
+          \begin{equation}
+          \frac{\partial f}{\partial y} = 3 e^{y} e^{z}
+          \end{equation}
+          \begin{equation}
+          \frac{\partial f}{\partial z} = 3 e^{y} e^{z} + \cos{\left(x \right)} \cos{\left(z \right)}
+          \end{equation}</p>
+
+        <p>substituting {x: 0,y: 0,z: 0} we get</p>
+
+        <p>\begin{equation}
+          J(0, 0, 0) =[0, 3, 4]
+          \end{equation}</p>
+
+
+        <div>
+          <pre><code class='language-python'># Q5
+              x = Symbol('x')
+              y = Symbol('y')
+              z = Symbol('z')
+              f = x * exp(y) * cos(z) + 5 * x**2 * sin(y) * exp(z)
+              fpx = diff(f,x)
+              fpy = diff(f,y)
+              fpz = diff(f,z)
+              print(latex(fpx))
+              print(latex(fpy))
+              print (latex(fpz))
+              pnt = {x: 0,y: 0,z: 0}
+              J0 = [fpx.subs(pnt), fpy.subs(pnt), fpz.subs(pnt)]
+              J0</code></pre>
+        </div>
+
+        <h5>Question 5 Solution:</h5>
+
+        <p>\begin{equation}
+          \frac{\partial f}{\partial x} = 10 x e^{z} \sin{\left(y \right)} + e^{y} \cos{\left(z \right)}
+          \end{equation}
+          \begin{equation}
+          \frac{\partial f}{\partial y} = 3 e^{y} e^{z}
+          \end{equation}
+          \begin{equation}
+          \frac{\partial f}{\partial z} = 5 x^{2} e^{z} \sin{\left(y \right)} - x e^{y} \sin{\left(z \right)}
+          \end{equation}
+          substituting {x: 0,y: 0,z: 0} we get
+          \begin{equation}
+          J(0, 0, 0) =[1, 0, 0]
+          \end{equation}</p>
+
+        <p>\begin{equation}
+          u(x,y) = x - 2 y
+          \end{equation}
+          \begin{equation}
+          v(x,y) = 3 y - 2 x
+          \end{equation}
+          \begin{equation}
+          J_u =
+          \begin{matrix}
+          [ \frac{\partial_u}{\partial_x} & \frac{\partial_u}{\partial_y} ]
+          \end{matrix}
+          \end{equation}
+          \begin{equation}
+          J_v =
+          \begin{matrix}
+          [ \frac{\partial_v}{\partial_x} & \frac{\partial_v}{\partial_y} ]
+          \end{matrix}
+          \end{equation}
+          \begin{equation}
+          J =
+          \begin{bmatrix}
+          \frac{\partial_u}{\partial_x} & \frac{\partial_u}{\partial_y} \\
+          \frac{\partial_v}{\partial_x} & \frac{\partial_v}{\partial_y}
+          \end{bmatrix}
+          \end{equation}</p>
+
+        <h4>Matrix Jacobians</h4>
+
+        <p><img src=matrixjac1.png width="70%">
+          <br /><br />
+          The Jacobians of a matrix can be computed using the following methods:
+        </p>
+
+
+        <div>
+          <pre><code class='language-python'># Q5
+              import numpy as np
+              x = Symbol('x')
+              y = Symbol('y')
+              u = x -(2 * y)
+              v = 3 * y  - (2 * x)
+              ux = diff(u,x)
+              uy = diff(u,y)
+              vx = diff(v,x)
+              vy = diff(v,y)
+              J = [[ux,uy],[vx,vy]]
+              print(J)
+              print(latex(ux))
+              print(latex(uy))
+              print(latex(vx))
+              print(latex(vy))
+              print(latex(u))
+              print(latex(v))
+              # print (latex(fpz))
+              # pnt = {x: 0,y: 0,z: 0}
+              # J0 = [fpx.subs(pnt), fpy.subs(pnt), fpz.subs(pnt)]
+              # J0</code></pre>
+        </div>
+
+
+        <div>
+          <pre><code class='language-python'>import matplotlib.pyplot as plt
+              xp = np.arange(-1, 1, .002)
+              yp = np.arange(-1, 1, .002)
+              up = [[ux.subs({x:i, y:j}), uy.subs({x:i, y:j})] for i, j in  zip(xp,yp)]</code></pre>
+        </div>
+
+
+        <div>
+          <pre><code class='language-python'># import pandas as pd
+              df = pd.DataFrame(up)
+              df.describe()
+              plt.scatter([0,1], [0, -2])</code></pre>
+        </div>
+
+        <p>\begin{equation}
+          u(x,y) = x - 2 y^{3}
+          \end{equation}
+          \begin{equation}
+          v(x,y) =- 2 x^{3} + 3 y^{2}
+          \end{equation}
+          hence the derived Jacobian is</p>
+
+        <hr />
+
+        <p>\begin{equation}
+          J =
+          \begin{bmatrix}
+          1 &, - 6 y^{2} \\
+          - 6 x^{2} &, 6 y
+          \end{bmatrix}
+          \end{equation}</p>
+
+        <h3>Bigger Jacobians Quiz</h3>
+
+
+        <div>
+          <pre><code class='language-python'># Q1
+              import numpy as np
+              x = Symbol('x')
+              y = Symbol('y')
+              u = 9*x**2 * y**2 + z*exp(x)
+              v = x*y + x**2 * y**3 + 2*z
+              w = cos(x)*sin(z)*exp(y)
+              ux = diff(u,x)
+              uy = diff(u,y)
+              uz = diff(u,z)
+              vx = diff(v,x)
+              vy = diff(v,y)
+              vz = diff(v,z)
+              wx = diff(w,x)
+              wy = diff(w,y)
+              wz = diff(w,z)
+              # print(J)
+              print("ux -->",latex(ux))
+              print("uy -->",latex(uy))
+              print("uz -->",latex(uz))
+              print("vx -->",latex(vx))
+              print("vy -->",latex(vy))
+              print("vz -->",latex(vz))
+              print("wx -->",latex(wx))
+              print("wy -->",latex(wy))
+              print("wz -->",latex(wz))
+              print("u(x,y,z) =" ,latex(u))
+              print("v(x,y,z) =",latex(v))
+              print("w(x,y,z) =", latex(w))
+              pnt = {x: 0,y: 0,z: 0}
+              jPnt = [[ux.subs(pnt),uy.subs(pnt),uz.subs(pnt)],
+              [vx.subs(pnt),vy.subs(pnt),vz.subs(pnt)],
+              [wx.subs(pnt),wy.subs(pnt),wz.subs(pnt)]]
+              print(jPnt)</code></pre>
+        </div>
+
+        <h4>Solution for Q1</h4>
+
+        <p>\begin{equation}
+          u(x,y,z) = 9 x^{2} y^{2} + z e^{x}
+          \end{equation}
+          \begin{equation}
+          v(x,y,z) = x^{2} y^{3} + x y + 2 z
+          \end{equation}
+          \begin{equation}
+          w(x,y,z) = e^{y} \sin{\left(z \right)} \cos{\left(x \right)}
+          \end{equation}
+          hence the derived Jacobian is</p>
+
+        <hr />
+
+        <p>\begin{equation}
+          J =
+          \begin{bmatrix}
+          18 x y^{2} + z e^{x} &
+          18 x^{2} y &
+          e^{x} \\
+          2 x y^{3} + y &
+          3 x^{2} y^{2} + x &
+          2 \\
+          - e^{y} \sin{\left(x \right)} \sin{\left(z \right)}&
+          e^{y} \sin{\left(z \right)} \cos{\left(x \right)}&
+          e^{y} \cos{\left(x \right)} \cos{\left(z \right)}
+          \end{bmatrix}
+          \end{equation}
+          Evaluating the Jacobian at x=0, y=0, z=0 gives
+          \begin{equation}
+          \begin{bmatrix}
+          0 & 0 & 1 \\
+          0 & 0 & 2 \\
+          0 & 0 & 1
+          \end{bmatrix}
+          \end{equation}</p>
+
+
+        <div>
+          <pre><code class='language-python'># Q2
+              import numpy as np
+              r = Symbol('r')
+              theta = Symbol('theta')
+              phi = Symbol('phi')
+              u = r * cos(theta) * sin(phi)
+              v = r * sin(theta) * sin(phi)
+              w = r * cos(phi)
+              ux = diff(u,r)
+              uy = diff(u,theta)
+              uz = diff(u,phi)
+              vx = diff(v,r)
+              vy = diff(v,theta)
+              vz = diff(v,phi)
+              wx = diff(w,r)
+              wy = diff(w,theta)
+              wz = diff(w,phi)
+              # print(J)
+              print("ux -->",latex(ux))
+              print("uy -->",latex(uy))
+              print("uz -->",latex(uz))
+              print("vx -->",latex(vx))
+              print("vy -->",latex(vy))
+              print("vz -->",latex(vz))
+              print("wx -->",latex(wx))
+              print("wy -->",latex(wy))
+              print("wz -->",latex(wz))
+              print("u(x,y,z) =" ,latex(u))
+              print("v(x,y,z) =",latex(v))
+              print("w(x,y,z) =", latex(w))
+              pnt = {r: 1,theta: pi/4,phi: pi/4}
+              jPnt = [[ux.subs(pnt),uy.subs(pnt),uz.subs(pnt)],
+              [vx.subs(pnt),vy.subs(pnt),vz.subs(pnt)],
+              [wx.subs(pnt),wy.subs(pnt),wz.subs(pnt)]]
+              print(jPnt)</code></pre>
+        </div>
+
+        <h4>Solution for Q2</h4>
+
+        <p>\begin{equation}
+          u(r,\theta,\phi) = r \sin{\left(\phi \right)} \cos{\left(\theta \right)}
+          \end{equation}
+          \begin{equation}
+          v(r,\theta,\phi) = r \sin{\left(\phi \right)} \sin{\left(\theta \right)}
+          \end{equation}
+          \begin{equation}
+          w(r,\theta,\phi) = r \cos{\left(\phi \right)}
+          \end{equation}
+          hence the derived Jacobian is</p>
+
+        <hr />
+
+        <p>\begin{equation}
+          J =
+          \begin{bmatrix}
+          \sin{\left(\phi \right)} \cos{\left(\theta \right)} &
+          - r \sin{\left(\phi \right)} \sin{\left(\theta \right)} &
+          r \cos{\left(\phi \right)} \cos{\left(\theta \right)} \\
+          \sin{\left(\phi \right)} \sin{\left(\theta \right)} &
+          r \sin{\left(\phi \right)} \cos{\left(\theta \right)} &
+          r \sin{\left(\theta \right)} \cos{\left(\phi \right)} \\
+          \cos{\left(\phi \right)} &
+          0 &
+          - r \sin{\left(\phi \right)}
+          \end{bmatrix}
+          \end{equation}
+          Evaluating the Jacobian at $r = 0$, $\theta = 0$, $\phi = 0$ gives
+          \begin{equation}
+          \begin{bmatrix}
+          0 & 0 & 0 \\
+          0 & 0 & 0 \\
+          0 & 0 & 1
+          \end{bmatrix}
+          \end{equation}
+          Evaluating the Jacobian at
+          \begin{equation}
+          r = 1, \theta = 0, \phi = 0
+          \end{equation}
+
+          gives
+          \begin{equation}
+          \begin{bmatrix}
+          0 & 0 & 1 \\
+          0 & 0 & 2 \\
+          0 & 0 & 1
+          \end{bmatrix}
+          \end{equation}
+
+          Evaluating the Jacobian at
+          \begin{equation}
+          r = 1, \theta = \frac{\pi}{4}, \phi = \frac{\pi}{4}
+          \end{equation} gives
+          \begin{equation}
+          \begin{bmatrix}
+          \frac{1}{2} & - \frac{1}{2} & \frac{1}{2} \\
+          \frac{1}{2} & \frac{1}{2} & \frac{1}{2} \\
+          \frac{\sqrt{2}}{2} & 0 & - \frac{\sqrt{2}}{2}
+          \end{bmatrix}
+          \end{equation}</p>
+
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="js/prism.js"></script>
+</body>
+
+</html>

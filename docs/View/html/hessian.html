@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<title>Hessian Quiz</title>
+<meta charset="utf-8"/>
+<link href="../docs/View/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="../docs/View/css/prism.css" rel="stylesheet" type="text/css"/>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" rel="stylesheet"/>
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" rel="stylesheet"/>
+<!-- The loading of KaTeX is deferred to speed up page rendering -->
+<script crossorigin="anonymous" defer="" integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<!-- To automatically render math in text elements, include the auto-render extension: -->
+<script crossorigin="anonymous" defer="" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" onload="renderMathInElement(document.body);" src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+<div class="container">
+<!--navbar here -->
+<div id="navbar"><nav class="navbar navbar-expand-lg bg-body-tertiary">
+<div class="container-fluid">
+<a class="navbar-brand" href="../docs/View/html/index.html">Sophie's Coding Journey</a>
+<button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav">
+<li class="nav-item">
+<a aria-current="page" class="nav-link active" href="../docs/View/html/index.html">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="../docs/View/html/about.html">About Me</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="../docs/View/html/research_intersts.html">Research Interests</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="../docs/View/html/general_intersts.html">General Interests</a>
+</li>
+</ul>
+</div>
+</div>
+</nav></div>
+<div class="row">
+<div class="col-12">
+<h1 class="title">Hessian Quiz</h1>
+</div>
+</div>
+<div class="row">
+<div class="col-12" id="dynamic_content">
+<!-- pages here-->
+
+<div>
+</div>
+<h2> Calculating Hessians Quiz</h2>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">from sympy import *
+import math
+import numpy as np
+from IPython.display import HTML
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> QUESTION 1
+</h4>
+
+<span>For the function $f(x,y) = x^3y+x+2y$ , calculate the Hessian matrix 
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+H = 
+\begin{bmatrix}
+\partial^2 f/\partial_{{x},{x}} f &amp;&amp; \partial^2 f/\partial_{{x},{y}} f\\
+\partial^2 f/\partial_{{y},{x}} f &amp;&amp; \partial^2_f/\partial_{{y},{y}} f 
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+f = x**3 * y + x + 2*y
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y], [x, y]])
+J_u = np.array([x ,y])
+for i, x_f in zip(range(H_u.shape[0]), [x, y]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n\\begin{equation*}\n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix} \n\\end{equation*}\n'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*}\n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*}\n f(x, y) = "+latex(f)+"\n\\end{equation*}\n")
+print(J_ltx)
+print(H_ltx)
+
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 1 Solution 
+</h4>
+<p class="katex">
+$$
+\begin{equation*}
+
+f(x, y) = x^{3} y + x + 2 y
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+J = \begin{bmatrix}
+3 x^{2} y + 1 &amp;
+ x^{3} + 2 \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+H = \begin{bmatrix}
+6 x y &amp;
+ 3 x^{2} \\ \\ 
+3 x^{2} &amp;
+ 0 \\ \\ 
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<h4> QUESTION 2
+</h4>
+
+<span>For the function $f(x,y) = e^{x}cos(y)$ , calculate the Hessian matrix 
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+H = 
+\begin{bmatrix}
+\partial^2 f/\partial_{{x},{x}} f &amp;
+\partial^2 f/\partial_{{x},{y}} f\\
+\partial^2 f/\partial_{{y},{x}} f &amp;
+\partial^2_f/\partial_{{y},{y}} f 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+f = exp(x)*cos(y)
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y], [x, y]])
+J_u = np.array([x ,y])
+for i, x_f in zip(range(H_u.shape[0]), [x, y]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n\\begin{equation*}\n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*}\n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*}\n f(x, y) = "+latex(f)+"\n\\end{equation*}\n")
+print(J_ltx)
+print(H_ltx)
+
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 2 Solution 
+</h4>
+<p class="katex">
+$$
+\begin{equation*}
+f(x_1, x_2, x_3) = e^{x} \cos{\left(y \right)}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+J = \begin{bmatrix}
+e^{x} \cos{\left(y \right)} &amp;
+ - e^{x} \sin{\left(y \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+H = \begin{bmatrix}
+e^{x} \cos{\left(y \right)} &amp;
+ - e^{x} \sin{\left(y \right)} \\ \\ 
+- e^{x} \sin{\left(y \right)} &amp;
+ - e^{x} \cos{\left(y \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<h4> QUESTION 3
+</h4>
+
+<span>For the function $f(x,y) = \frac{x^2}{2} + xy + \frac{y^2}{2}$, calculate the Hessian matrix 
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+H = 
+\begin{bmatrix}
+\partial^2 f/\partial_{{x},{x}} f &amp;
+ \partial^2 f/\partial_{{x},{y}} f\\
+\partial^2 f/\partial_{{y},{x}} f &amp;
+\partial^2_f/\partial_{{y},{y}} f 
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+f = x**2/2 + x*y + y**2/2
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y], [x, y]])
+J_u = np.array([x ,y])
+for i, x_f in zip(range(H_u.shape[0]), [x, y]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n\\begin{equation*}\n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*}\n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*}\n f(x, y) = "+latex(f)+"\n\\end{equation*}\n")
+print(J_ltx)
+print(H_ltx)
+
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 3 Solution
+</h4>
+<p class="katex">
+$$
+\begin{equation*}
+f(x_1, x_2, x_3) = \frac{x^{2}}{2} + x y + \frac{y^{2}}{2}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+J = \begin{bmatrix}
+x + y &amp;
+ x + y \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+H = \begin{bmatrix}
+1 &amp;
+ 1 \\ \\ 
+1 &amp;
+ 1 \\ \\ 
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<h4> QUESTION 4
+</h4>
+
+<span>For the function $f(x,y, z) = x^2 e^{-y} cos(z)$ , calculate the Hessian matrix 
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+H = 
+\begin{bmatrix}
+\partial^2 f/\partial_{{x},{x}} f &amp;
+\partial^2 f/\partial_{{x},{y}} f&amp;
+ \partial^2 f/\partial_{{x},{z}} f\\
+\partial^2 f/\partial_{{y},{x}} f &amp;
+\partial^2_f/\partial_{{y},{y}} f &amp;
+\partial^2 f/\partial_{{y},{z}} f\\
+\partial^2 f/\partial_{{z},{x}} f &amp;
+\partial^2_f/\partial_{{z},{y}} f &amp;
+\partial^2 f/\partial_{{z},{z}} f
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+z = Symbol('z')
+f = x**2*exp(-y)*cos(z)
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y, z], [x, y, z], [x, y, z]])
+J_u = np.array([x ,y, z])
+for i, x_f in zip(range(H_u.shape[0]), [x, y, z]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y, z]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n\\begin{equation*}\n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*}\n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*}\n f(x, y, z) = "+latex(f)+"\n\\end{equation*}\n")
+print(J_ltx)
+print(H_ltx)
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 4 Solution
+</h4>
+<p class="katex">
+$$
+\begin{equation*} 
+f(x_1, x_2, x_3) = x^{2} e^{- y} \cos{\left(z \right)}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*} 
+J = \begin{bmatrix}
+2 x e^{- y} \cos{\left(z \right)} &amp;
+ - x^{2} e^{- y} \cos{\left(z \right)} &amp;
+ - x^{2} e^{- y} \sin{\left(z \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+H = \begin{bmatrix}
+2 e^{- y} \cos{\left(z \right)} &amp;
+ - 2 x e^{- y} \cos{\left(z \right)} &amp;
+ - 2 x e^{- y} \sin{\left(z \right)} \\ \\ 
+- 2 x e^{- y} \cos{\left(z \right)} &amp;
+ x^{2} e^{- y} \cos{\left(z \right)} &amp;
+ x^{2} e^{- y} \sin{\left(z \right)} \\ \\ 
+- 2 x e^{- y} \sin{\left(z \right)} &amp;
+ x^{2} e^{- y} \sin{\left(z \right)} &amp;
+ - x^{2} e^{- y} \cos{\left(z \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<h4> QUESTION 5
+</h4>
+
+<span>For the function $f(x,y, z) = xe^{y} + y^2cos(z)$, calculate the Hessian matrix 
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+H = 
+\begin{bmatrix}
+\partial^2 f/\partial_{{x},{x}} f &amp;
+\partial^2 f/\partial_{{x},{y}} f&amp;
+ \partial^2 f/\partial_{{x},{z}} f\\
+\partial^2 f/\partial_{{y},{x}} f &amp;
+\partial^2_f/\partial_{{y},{y}} f &amp;
+\partial^2 f/\partial_{{y},{z}} f\\
+\partial^2 f/\partial_{{z},{x}} f &amp;
+\partial^2_f/\partial_{{z},{y}} f &amp;
+\partial^2 f/\partial_{{z},{z}} f
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+z = Symbol('z')
+f = x*exp(y) + y**2*cos(z)
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y, z], [x, y, z], [x, y, z]])
+J_u = np.array([x ,y, z])
+for i, x_f in zip(range(H_u.shape[0]), [x, y, z]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y, z]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n\\begin{equation*}\n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*}\n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*}\n f(x, y, z) = "+latex(f)+"\n\\end{equation*}\n")
+print(J_ltx)
+print(H_ltx)
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 5 Solution
+</h4>
+<p class="katex">
+$$
+\begin{equation*}
+ f(x, y, z) = x e^{y} + y^{2} \cos{\left(z \right)}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+ J = \begin{bmatrix}
+e^{y} &amp;
+ x e^{y} + 2 y \cos{\left(z \right)} &amp;
+ - y^{2} \sin{\left(z \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+ H = \begin{bmatrix}
+0 &amp;
+ e^{y} &amp;
+ 0 \\ \\ 
+e^{y} &amp;
+ x e^{y} + 2 \cos{\left(z \right)} &amp;
+ - 2 y \sin{\left(z \right)} \\ \\ 
+0 &amp;
+ - 2 y \sin{\left(z \right)} &amp;
+ - y^{2} \cos{\left(z \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+
+<div>
+</div>
+<h1> Assessment: Jacobians and Hessians
+</h1>
+
+<h4> QUESTION 1
+</h4>
+
+<span>For the function $f(x,y, z) = x^2cos(y) + e^{z}sin(y)$ , calculate the Jacobian matrix and evaluate at the point $(x,y,z) = (\pi,\pi,1) $
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+J = 
+\begin{bmatrix}
+\partial f/\partial_{x} f &amp;
+\partial f/\partial_{y} f &amp;
+\partial f/\partial_{y} f
+
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+z = Symbol('z')
+f = x**2 * cos(y) + exp(z) * sin(y)
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y, z], [x, y, z], [x, y, z]])
+J_u = np.array([x ,y, z])
+for i, x_f in zip(range(H_u.shape[0]), [x, y, z]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y, z]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n\\begin{equation*}\n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*}\n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix}\n\\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*}\n f(x, y, z) = "+latex(f)+"\n\\end{equation*}\n")
+print(J_ltx)
+print(H_ltx)
+pnt = {x:pi,y:pi,z:1}
+ePnt = []
+for fn in J_u:
+    ePnt.append(fn.subs(pnt))
+# print(H_ltx)
+print(ePnt)
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 1 Solution
+</h4>
+<p class="katex">
+$$
+\begin{equation*}
+ f(x, y, z) = x^{2} \cos{\left(y \right)} + e^{z} \sin{\left(y \right)}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+ J = \begin{bmatrix}
+2 x \cos{\left(y \right)} &amp;
+ - x^{2} \sin{\left(y \right)} + e^{z} \cos{\left(y \right)} &amp;
+ e^{z} \sin{\left(y \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+ H = \begin{bmatrix}
+2 \cos{\left(y \right)} &amp;
+ - 2 x \sin{\left(y \right)} &amp;
+ 0 \\ \\ 
+- 2 x \sin{\left(y \right)} &amp;
+ - x^{2} \cos{\left(y \right)} - e^{z} \sin{\left(y \right)} &amp;
+ e^{z} \cos{\left(y \right)} \\ \\ 
+0 &amp;
+ e^{z} \cos{\left(y \right)} &amp;
+ e^{z} \sin{\left(y \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+J(\pi,\pi,1) = \begin{bmatrix}
+-2\pi&amp; -e&amp; 0
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<h4> QUESTION 2
+</h4>
+
+<span>Calculate the Jacobian of the vector valued functions: $u(x,y)=x^2y−cos(x)sin(y), v(x,y)=e^{x+y}$, calculate the Jacobian matrix and evaluate at the point $(x,y) = (0,\pi) $
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+J = 
+\begin{bmatrix}
+\partial u/\partial_{x} u &amp;
+\partial u/\partial_{y} u \\
+
+\partial v/\partial_{x} v &amp;
+\partial v/\partial_{y} v \\
+
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+u = x**2 * y - cos(x) * sin(y)
+v = exp(x+y)
+# initialize an array to store solution of sympy expressions
+J = np.array([[x ,y],
+              [x ,y]])
+for i, x_f in zip(range(J.shape[0]), [x, y]):
+    J[i,0] = diff(u, x_f)
+    J[i,1] = diff(v, x_f)
+# convert the numpy array of first partial derivatives to a latex string
+J_u_ltx = '\n\\begin{equation*} \n J = \\begin{bmatrix}\n'
+J_u_ltx += ' &amp;\n '.join([latex(x) for x in J[:,0]])
+J_u_ltx += ' \\\\ \\\\ \n'
+J_u_ltx += ' &amp;\n '.join([latex(x) for x in J[:,1]])
+J_u_ltx += ' \\\\ \\\\ \n'
+J_u_ltx += '\\end{bmatrix} \n\end{equation*}'
+# print solution in latex format
+print("\n\\begin{equation*}u(x ,y) = "+latex(u)+"\n\end{equation*}")
+print("\n\\begin{equation*}v(x ,y) = "+latex(v)+"\n\end{equation*}")
+print(J_u_ltx)
+pnt = {x:0,y:pi}
+pnt = latex([[ J[j,i].subs(pnt) for i in range(J.shape[1])] for j in range(J.shape[0])])
+# print(H_ltx)
+print(pnt)
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 2 Solution
+</h4>
+<p class="katex">
+$$
+\begin{equation*}u(x ,y) = x^{2} y - \sin{\left(y \right)} \cos{\left(x \right)}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}v(x ,y) = e^{x + y}
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*} 
+ J = \begin{bmatrix}
+2 x y + \sin{\left(x \right)} \sin{\left(y \right)} &amp;
+ x^{2} - \cos{\left(x \right)} \cos{\left(y \right)} \\ \\ 
+e^{x + y} &amp;
+ e^{x + y} \\ \\ 
+\end{bmatrix} 
+\end{equation*}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation*}
+J(0,\pi) = 
+\begin{bmatrix}
+0 &amp;  e^{\pi} \\
+1 &amp;e^{\pi}
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<h4> QUESTION 2
+</h4>
+
+<span>Calculate the Hessian for the function
+</span>
+
+<span>$f(x,y)=x^3cos(y)−x sin(y)$
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+H = 
+\begin{bmatrix}
+\partial^2 f/\partial_{{x},{x}} f &amp;
+ \partial^2 f/\partial_{{x},{y}} f\\
+\partial^2 f/\partial_{{y},{x}} f &amp;
+\partial^2_f/\partial_{{y},{y}} f 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+f = x**3*cos(y) -x*sin(y)
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y], [x, y]])
+J_u = np.array([x ,y])
+for i, x_f in zip(range(H_u.shape[0]), [x, y]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n\\begin{equation*}\n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix}\n\end{equation*}\n'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*} \n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix} \n \\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*} \n f(x, y, z) = "+latex(f)+"\end{equation*}")
+# print(J_ltx)
+print(H_ltx)
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 3 Solution
+</h4>
+<p class="katex">
+$$
+\begin{equation*} 
+ f(x, y, z) = x^{3} \cos{\left(y \right)} - x \sin{\left(y \right)}\end{equation*}
+
+\begin{equation*}
+ H = \begin{bmatrix}
+6 x \cos{\left(y \right)} &amp;
+ - 3 x^{2} \sin{\left(y \right)} - \cos{\left(y \right)} \\ \\ 
+- 3 x^{2} \sin{\left(y \right)} - \cos{\left(y \right)} &amp;
+ - x^{3} \cos{\left(y \right)} + x \sin{\left(y \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+
+<div>
+</div>
+<h4> QUESTION 4
+</h4>
+
+<span>For the function $f(x,y,z)=xy+sin(y)sin(z)+z^3e^x$ , calculate the Hessian matrix 
+</span>
+<p class="katex">
+$$
+\begin{equation*}
+H = 
+\begin{bmatrix}
+\partial^2 f/\partial_{{x},{x}} f &amp;
+\partial^2 f/\partial_{{x},{y}} f&amp;
+ \partial^2 f/\partial_{{x},{z}} f\\
+\partial^2 f/\partial_{{y},{x}} f &amp;
+\partial^2_f/\partial_{{y},{y}} f &amp;
+\partial^2 f/\partial_{{y},{z}} f\\
+\partial^2 f/\partial_{{z},{x}} f &amp;
+\partial^2_f/\partial_{{z},{y}} f &amp;
+\partial^2 f/\partial_{{z},{z}} f
+\end{bmatrix}
+\end{equation*}
+$$
+</p>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+z = Symbol('z')
+f = x*y + sin(y)*sin(z) +z**3*exp(x)
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y, z], [x, y, z], [x, y, z]])
+J_u = np.array([x ,y, z])
+for i, x_f in zip(range(H_u.shape[0]), [x, y, z]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y, z]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n \\begin{equation*} \n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix}\n\end{equation*}'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*}\n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix} \n\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*} \n f(x, y, z) = "+latex(f)+"\n \\end{equation*}\n")
+# print(J_ltx)
+print(H_ltx)
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 4 Solution
+</h4>
+<p class="katex">
+$$
+\begin{equation*} 
+ f(x, y, z) = x y + z^{3} e^{x} + \sin{\left(y \right)} \sin{\left(z \right)}
+ \end{equation*}
+
+
+ \begin{equation*} 
+ H = \begin{bmatrix}
+z^{3} e^{x} &amp;
+ 1 &amp;
+ 3 z^{2} e^{x} \\ \\ 
+1 &amp;
+ - \sin{\left(y \right)} \sin{\left(z \right)} &amp;
+ \cos{\left(y \right)} \cos{\left(z \right)} \\ \\ 
+3 z^{2} e^{x} &amp;
+ \cos{\left(y \right)} \cos{\left(z \right)} &amp;
+ 6 z e^{x} - \sin{\left(y \right)} \sin{\left(z \right)} \\ \\ 
+\end{bmatrix}
+\end{equation*}
+
+$$
+</p>
+
+<div>
+</div>
+<h4> QUESTION 5
+</h4>
+
+<span>Calculate the Hessian for the function $f(x,y,z)=x y cos(z)−sin(x)e^yz^3$ and evaluate at the point $(x,y,z)=(0,0,0)$  
+</span>
+
+<span> \begin{equation*}
+</span>
+
+<span>  H = 
+</span>
+
+<span>\begin{bmatrix}
+</span>
+
+<span>\partial^2 f/\partial_{{x},{x}} f &amp;
+</span>
+
+<span>\partial^2 f/\partial_{{x},{y}} f&amp;
+</span>
+
+<span> \partial^2 f/\partial_{{x},{z}} f\\
+</span>
+
+<span>\partial^2 f/\partial_{{y},{x}} f &amp;
+</span>
+
+<span>\partial^2_f/\partial_{{y},{y}} f &amp;
+</span>
+
+<span>\partial^2 f/\partial_{{y},{z}} f\\
+</span>
+
+<span>\partial^2 f/\partial_{{z},{x}} f &amp;
+</span>
+
+<span>\partial^2_f/\partial_{{z},{y}} f &amp;
+</span>
+
+<span>\partial^2 f/\partial_{{z},{z}} f
+</span>
+
+<span>\end{bmatrix}
+</span>
+
+<span>\end{equation*}</span>
+
+<div>
+</div>
+<div>
+<pre>
+<code class="language-python">x = Symbol('x')
+y = Symbol('y')
+z = Symbol('z')
+f = x * y * cos(z) + sin(x) * exp(y) *z**3
+# initialize an array to store solution of sympy expressions
+H_u = np.array([[x, y, z], [x, y, z], [x, y, z]])
+J_u = np.array([x ,y, z])
+for i, x_f in zip(range(H_u.shape[0]), [x, y, z]):
+    J_u[i] = diff(f, x_f)
+    for j, xx in zip(range(H_u.shape[0]), [x, y, z]):
+        H_u[i, j] = diff(J_u[i], xx)
+# convert the numpy array of 2nd partial derivatives to a latex string
+H_ltx = '\n \\begin{equation*} \n H = \\begin{bmatrix}\n'
+for i in range(H_u.shape[0]):
+    H_ltx += ' &amp;\n '.join([latex(x) for x in H_u[i]])
+    H_ltx += ' \\\\ \\\\ \n'
+H_ltx += '\\end{bmatrix}\n\end{equation*}'
+# convert the numpy array of first partial derivatives to a latex string
+J_ltx = '\n\\begin{equation*}\n J = \\begin{bmatrix}\n'
+J_ltx += ' &amp;\n '.join([latex(x) for x in J_u])
+J_ltx += ' \\\\ \\\\ \n'
+J_ltx += '\\end{bmatrix} \n\end{equation*}\n'
+# print solution in latex format
+print("\n\\begin{equation*} \n f(x, y, z) = "+latex(f)+"\n \\end{equation*}\n")
+# print(J_ltx)
+pnt = {x:0,y:0,z:0}
+ePnt = []
+for i in range(H_u.shape[0]):
+    row = []
+    for j in range(H_u.shape[1]):
+        row.append(H_u[i, j].subs(pnt))
+    ePnt.append(row)
+print(H_ltx)
+print(ePnt)
+</code>
+</pre>
+</div>
+
+<div>
+</div>
+<h4> Question 5 Solution
+</h4>
+<p class="katex">
+$$
+\begin{equation}
+ f(x, y, z) = x y \cos{\left(z \right)} + z^{3} e^{y} \sin{\left(x \right)}
+ \end{equation}
+
+ \begin{equation}
+ H = \begin{bmatrix}
+ -z^{3} e^{y} \sin{\left(x \right)} &amp;
+ z^{3} e^{y} \cos{\left(x \right)} + \cos{\left(z \right)} &amp;
+ -y \sin{\left(z \right)} + 3 z^{2} e^{y} \cos{\left(x \right)} \\ \\ 
+z^{3} e^{y} \cos{\left(x \right)} + \cos{\left(z \right)} &amp;
+ z^{3} e^{y} \sin{\left(x \right)} &amp;
+ -x \sin{\left(z \right)} + 3 z^{2} e^{y} \sin{\left(x \right)} \\ \\ 
+-y \sin{\left(z \right)} + 3 z^{2} e^{y} \cos{\left(x \right)} &amp;
+ -x \sin{\left(z \right)} + 3 z^{2} e^{y} \sin{\left(x \right)} &amp;
+ -x y \cos{\left(z \right)} + 6 z e^{y} \sin{\left(x \right)} \\ \\
+\end{bmatrix}
+\end{equation}
+
+$$
+</p>
+<p class="katex">
+$$
+\begin{equation} 
+f(0,0,0) = 
+\begin{bmatrix}
+0 &amp; 1 &amp; 0 \\
+1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0
+\end{bmatrix}
+\end{equation}
+$$
+</p>
+</div>
+</div>
+</div>
+<script crossorigin="anonymous" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js">
+</script>
+<script src="../docs/View/js/prism.js">
+</script>
+</body>
+</html>
